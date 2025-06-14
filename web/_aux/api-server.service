@@ -1,0 +1,14 @@
+[Unit]
+Description=Robot Car API Server
+After=network.target
+
+[Service]
+WorkingDirectory=/home/petres/prj/robot-car/server
+ExecStart=/home/petres/prj/robot-car/server/bin/gunicorn.sh
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

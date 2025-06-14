@@ -1,0 +1,16 @@
+{
+  "files.associations": {
+    "*.sh": "shellscript",
+    "xlocale": "cpp",
+    "memory": "cpp",
+    "array": "cpp",
+    "deque": "cpp",
+    "string": "cpp",
+    "unordered_map": "cpp",
+    "vector": "cpp",
+    "string_view": "cpp",
+    "initializer_list": "cpp",
+    "*.tcc": "cpp"
+  },
+  "julia.environmentPath": "/home/peter/Projects/elegoo/self/code/SmartRobotCarV4.0_V1_20230201"
+}
