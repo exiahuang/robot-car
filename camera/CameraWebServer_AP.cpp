@@ -123,8 +123,27 @@ void CameraWebServer_AP::CameraWebServer_AP_Init(void)
   wifi_name = mac0_default + mac1_default;
 
   WiFi.setTxPower(WIFI_POWER_19_5dBm);
-  WiFi.mode(WIFI_AP);
-  WiFi.softAP(mac_default, password, 9);
+  WiFi.mode(WIFI_STA);
+  WiFi.config(IPAddress(192,168,1,100), IPAddress(192,168,1,1), IPAddress(255,255,255,0));
+  WiFi.begin("ssid", "12345678"); // Replace with your WiFi SSID and password
+  Serial.print("Connecting to WiFi ..");
+  unsigned long startAttemptTime = millis();
+  const unsigned long wifiTimeout = 15000; // 15 seconds timeout
+
+  while (WiFi.status() != WL_CONNECTED && millis() - startAttemptTime < wifiTimeout) {
+    Serial.print('.');
+    delay(1000);
+  }
+
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("\nWiFi connect failed, switching to AP mode.");
+    WiFi.mode(WIFI_AP);
+    WiFi.softAP(mac_default, password, 9);
+  } else {
+    Serial.println("\nWiFi connected successfully.");
+    Serial.println(WiFi.localIP());
+  }
+
   startCameraServer();
 
   Serial.print("Camera Ready! Use 'http://");

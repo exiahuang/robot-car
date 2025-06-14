@@ -1,6 +1,6 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion:
+ * @version:
  * @Author: Elegoo
  * @Date: 2020-06-04 11:42:27
  * @LastEditors: Changhua
@@ -94,15 +94,19 @@ void SocketServer_Test(void)
         }
         Heartbeat_time = millis();
       }
-      static unsigned long Test_time = 0;
-      if (millis() - Test_time > 1000) //定时检测连接设备
-      {
-        Test_time = millis();
-        //Serial2.println(WiFi.softAPgetStationNum());
-        if (0 == (WiFi.softAPgetStationNum())) //如果连接的设备个数为“0” 则向车模发送停止命令
+
+      // 判断是否为AP模式，只有AP模式才执行下面的代码
+      if (WiFi.getMode() == WIFI_AP || WiFi.getMode() == WIFI_AP_STA) {
+        static unsigned long Test_time = 0;
+        if (millis() - Test_time > 1000) //定时检测连接设备
         {
-          Serial2.print("{\"N\":100}");
-          break;
+          Test_time = millis();
+          //Serial2.println(WiFi.softAPgetStationNum());
+          if (0 == (WiFi.softAPgetStationNum())) //如果连接的设备个数为“0” 则向车模发送停止命令
+          {
+            Serial2.print("{\"N\":100}");
+            break;
+          }
         }
       }
     }
@@ -211,11 +215,11 @@ void loop()
 }
 
 /*
-C:\Program Files (x86)\Arduino\hardware\espressif\arduino-esp32/tools/esptool/esptool.exe --chip esp32 --port COM6 --baud 460800 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 80m --flash_size detect 
-0xe000 C:\Program Files (x86)\Arduino\hardware\espressif\arduino-esp32/tools/partitions/boot_app0.bin 
-0x1000 C:\Program Files (x86)\Arduino\hardware\espressif\arduino-esp32/tools/sdk/bin/bootloader_qio_80m.bin 
-0x10000 C:\Users\Faynman\Documents\Arduino\Hex/CameraWebServer_AP_20200608xxx.ino.bin 
-0x8000 C:\Users\Faynman\Documents\Arduino\Hex/CameraWebServer_AP_20200608xxx.ino.partitions.bin 
+C:\Program Files (x86)\Arduino\hardware\espressif\arduino-esp32/tools/esptool/esptool.exe --chip esp32 --port COM6 --baud 460800 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 80m --flash_size detect
+0xe000 C:\Program Files (x86)\Arduino\hardware\espressif\arduino-esp32/tools/partitions/boot_app0.bin
+0x1000 C:\Program Files (x86)\Arduino\hardware\espressif\arduino-esp32/tools/sdk/bin/bootloader_qio_80m.bin
+0x10000 C:\Users\Faynman\Documents\Arduino\Hex/CameraWebServer_AP_20200608xxx.ino.bin
+0x8000 C:\Users\Faynman\Documents\Arduino\Hex/CameraWebServer_AP_20200608xxx.ino.partitions.bin
 
 flash:path
 C:\Program Files (x86)\Arduino\hardware\espressif\arduino-esp32\tools\partitions\boot_app0.bin

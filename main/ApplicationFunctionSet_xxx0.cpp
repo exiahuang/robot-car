@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-01-05 09:30:14
  * @LastEditors: Changhua
  * @Description: Smart Robot Car V4.0
- * @FilePath: 
+ * @FilePath:
  */
 #include <avr/wdt.h>
 //#include <hardwareSerial.h>
@@ -140,7 +140,7 @@ static bool ApplicationFunctionSet_SmartRobotCarLeaveTheGround(void)
   }
 }
 /*
-  Straight line movement control：For dual-drive motors, due to frequent motor coefficient deviations and many external interference factors, 
+  Straight line movement control：For dual-drive motors, due to frequent motor coefficient deviations and many external interference factors,
   it is difficult for the car to achieve relative Straight line movement. For this reason, the feedback of the yaw control loop is added.
   direction：only forward/backward
   directionRecord：Used to update the direction and position data (Yaw value) when entering the function for the first time.
@@ -333,7 +333,7 @@ void ApplicationFunctionSet::ApplicationFunctionSet_SensorDataUpdate(void)
       if (VoltageData_V < VoltageDetection)
       {
         VoltageData_number++;
-        if (VoltageData_number == 500) //Continuity to judge the latest voltage value multiple 
+        if (VoltageData_number == 500) //Continuity to judge the latest voltage value multiple
         {
           VoltageDetectionStatus = true;
           VoltageData_number = 0;
@@ -821,7 +821,7 @@ void ApplicationFunctionSet::ApplicationFunctionSet_Servo(uint8_t Set_Servo)
 {
   static int z_angle = 9;
   static int y_angle = 9;
-  uint8_t temp_Set_Servo = Set_Servo; 
+  uint8_t temp_Set_Servo = Set_Servo;
 
   switch (temp_Set_Servo)
   {
@@ -909,7 +909,7 @@ void ApplicationFunctionSet::ApplicationFunctionSet_Standby(void)
   }
 }
 
-/* 
+/*
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  * Begin:CMD
  * Graphical programming and command control module
@@ -1127,10 +1127,10 @@ static void CMD_CarControl(uint8_t is_CarDirection, uint8_t is_CarSpeed)
 {
   switch (is_CarDirection)
   {
-  case 1: 
+  case 1:
     ApplicationFunctionSet_SmartRobotCarMotionControl(Left, is_CarSpeed);
     break;
-  case 2: 
+  case 2:
     ApplicationFunctionSet_SmartRobotCarMotionControl(Right, is_CarSpeed);
     break;
   case 3: /*movement direction mode forward*/
@@ -1613,7 +1613,7 @@ void ApplicationFunctionSet::CMD_TraceModuleStatus_xxx0(uint8_t is_get)
   Application_SmartRobotCarxxx0.Functional_Mode = CMD_Programming_mode; /*set mode to programming mode<Waiting for the next set of control commands>*/
 }
 
-/* 
+/*
  * End:CMD
  * Graphical programming and command control module
  $ Elegoo & SmartRobot & 2020-06
@@ -1662,7 +1662,7 @@ void ApplicationFunctionSet::ApplicationFunctionSet_IRrecv(void)
   if (AppIRrecv.DeviceDriverSet_IRrecv_Get(&IRrecv_button /*out*/))
   {
     IRrecv_en = true;
-    //Serial.println(IRrecv_button);
+    Serial.println(IRrecv_button);
   }
   if (true == IRrecv_en)
   {
@@ -1729,11 +1729,15 @@ void ApplicationFunctionSet::ApplicationFunctionSet_IRrecv(void)
       {
         Rocker_CarSpeed += 5;
       }
+      Serial.print("12. car speed up:" );
+      Serial.println(Rocker_CarSpeed);
     }
     break;
     case /* constant-expression */ 13:
     {
-      Rocker_CarSpeed = 250;
+      Rocker_CarSpeed = 180;
+      Serial.print("13. car default speed:" );
+      Serial.println(Rocker_CarSpeed);
     }
     break;
     case /* constant-expression */ 14:
@@ -1742,6 +1746,8 @@ void ApplicationFunctionSet::ApplicationFunctionSet_IRrecv(void)
       {
         Rocker_CarSpeed -= 5;
       }
+      Serial.print("14. car speed down:" );
+      Serial.println(Rocker_CarSpeed);
     }
     break;
 
@@ -1793,7 +1799,7 @@ void ApplicationFunctionSet::ApplicationFunctionSet_SerialPortDataAnalysis(void)
     //   SerialPortData = "";
     //   return;
     // }
-    // if (true == SerialPortData.equals("{Factory}") || true == SerialPortData.equals("{WA_NO}") || true == SerialPortData.equals("{WA_OK}")) 
+    // if (true == SerialPortData.equals("{Factory}") || true == SerialPortData.equals("{WA_NO}") || true == SerialPortData.equals("{WA_OK}"))
     // {
     //   SerialPortData = "";
     //   return;
@@ -1984,7 +1990,7 @@ void ApplicationFunctionSet::ApplicationFunctionSet_SerialPortDataAnalysis(void)
         Application_SmartRobotCarxxx0.Functional_Mode = Rocker_mode;
         Rocker_temp = doc["D1"];
         Rocker_CarSpeed = doc["D2"];
-        
+
         switch (Rocker_temp)
         {
         case 1:

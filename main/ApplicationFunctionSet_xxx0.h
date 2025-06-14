@@ -4,7 +4,7 @@
  * @LastEditTime: 2020-12-29 16:04:05
  * @LastEditors: Changhua
  * @Description: Smart Robot Car V4.0
- * @FilePath: 
+ * @FilePath:
  */
 #ifndef _ApplicationFunctionSet_xxx0_H_
 #define _ApplicationFunctionSet_xxx0_H_
@@ -77,7 +77,7 @@ public:
   const uint8_t ObstacleDetection = 20;
 
   String CommandSerialNumber;
-  uint8_t Rocker_CarSpeed = 250;
+  uint8_t Rocker_CarSpeed = 180; //Rocker Control Car Speed
   uint8_t Rocker_temp;
 
 public:
